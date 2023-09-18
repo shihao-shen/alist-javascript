@@ -1,5 +1,5 @@
 // 定义一个函数，用于将相对路径转换为绝对路径
-function convertRelativePathToAbsolutePath(relativePath) {
+function convertRelativePathToAbsolutePath(relativePath, char_v) {
     var curPath = window.document.location.href;
     var pathName = window.document.location.pathname.split("/");
     var basename = pathName.pop()
@@ -8,8 +8,8 @@ function convertRelativePathToAbsolutePath(relativePath) {
     //获取主机地址
     var currentURL = curPath.substring(0, pos)+"/p/"+pathName;
 
-    
-    if (relativePath.startsWith('./')) {
+    console.log(currentURL + relativePath.slice(1))
+    if (relativePath.startsWith(char_v)) {
         return currentURL + relativePath.slice(1);
     }
     return relativePath;
@@ -23,6 +23,7 @@ const observer = new MutationObserver((mutationsList, observer) => {
             mutation.addedNodes.forEach((node) => {
                 // 检查节点是否是HTMLElement（可能包含子元素）
                 
+                
                 if (node instanceof HTMLElement) {
                     // 查询所有子标签内的img标签
                     const imgTags = node.querySelectorAll('img');
@@ -31,7 +32,9 @@ const observer = new MutationObserver((mutationsList, observer) => {
                         // console.log(imgTag)
                         if (src && src.startsWith('./')) {
                             // 修改img标签的src属性为绝对路径
-                            imgTag.setAttribute('src', convertRelativePathToAbsolutePath(src));
+                            imgTag.setAttribute('src', convertRelativePathToAbsolutePath(src, "./"));
+                        } else if(!src.startsWith('./')) {
+                            imgTag.setAttribute('src', convertRelativePathToAbsolutePath("./"+src, "./"));
                         }
                     });
                 }
