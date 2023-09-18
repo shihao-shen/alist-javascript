@@ -33,7 +33,7 @@ const observer = new MutationObserver((mutationsList, observer) => {
                         if (src && src.startsWith('./')) {
                             // 修改img标签的src属性为绝对路径
                             imgTag.setAttribute('src', convertRelativePathToAbsolutePath(src, "./"));
-                        } else if(!src.startsWith('./')) {
+                        } else if(!src.startsWith('./') && !src.startsWith("http")) {
                             imgTag.setAttribute('src', convertRelativePathToAbsolutePath("./"+src, "./"));
                         }
                     });
