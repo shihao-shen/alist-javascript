@@ -5,10 +5,10 @@ function convertRelativePathToAbsolutePath(relativePath, char_v) {
     var basename = pathName.pop()
     pathName = pathName.join("/")
     var pos = curPath.indexOf(pathName);
+    var script_arg_one = document.getElementById("replace_script").src+""
+    var static_path = script_arg_one.split("?static_path=")[1]
     //获取主机地址
-    var currentURL = curPath.substring(0, pos)+"/p/"+pathName;
-
-    console.log(currentURL + relativePath.slice(1))
+    var currentURL = curPath.substring(0, pos)+"/"+static_path+"/"+pathName;
     if (relativePath.startsWith(char_v)) {
         return currentURL + relativePath.slice(1);
     }
